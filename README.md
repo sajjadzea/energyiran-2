@@ -62,19 +62,18 @@ npm run build -- --minify
 - Generate coverage report: `npm run test:coverage`
 - CI mode: `npm run ci:test`
 
-### End-to-End Tests (Cypress)
-- Install Cypress and Xvfb for headless runs:
-  ```bash
-  # On Debian/Ubuntu:
-  sudo apt-get update && sudo apt-get install -y xvfb
-  ```
-  Or add the wrapper:
-  ```bash
-  npm install --save-dev xvfb
-  ```
-- Execute the suite:
+### Running Cypress E2E Tests
+- **Locally with Chrome**:
   ```bash
   npm run e2e
+  ```
+- **In CI (Electron)**:
+  ```bash
+  npm run e2e:ci
+  ```
+- **In CI with Chrome** (if you prefer):
+  ```bash
+  npm run e2e:chrome
   ```
 
 ## License

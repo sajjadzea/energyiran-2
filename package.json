@@ -13,8 +13,10 @@
     "test:coverage": "jest --config jest.config.js --coverage",
     "ci:test": "npm run test -- --ci --runInBand",
     "pree2e": "node -e \"console.log('Cypress started in headless mode')\"",
-    "e2e": "xvfb-run -a -- cypress run --headless --browser chrome",
-    "e2e:ci": "cypress run --headless --browser chrome"
+    "e2e": "echo \"🚀 Starting Cypress in headless mode ($npm_lifecycle_event)\" && cypress run --headless --browser chrome",
+    "e2e:ci": "echo \"🚀 Starting Cypress in headless mode ($npm_lifecycle_event)\" && cypress run --headless --browser electron",
+    "install:chrome": "bash scripts/install-chrome.sh",
+    "e2e:chrome": "npm run install:chrome && cypress run --headless --browser chrome"
   },
   "keywords": [],
   "author": "",
@@ -45,10 +47,11 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "babel-jest": "^30.0.0",
+    "cypress": "^13.6.4",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^30.0.0",
     "supertest": "^6.3.4",
-    "cypress": "^13.6.4"
+    "xvfb": "^0.4.0"
   },
   "__comment": "Use npm run test to execute all tests"
 }

@@ -12,8 +12,22 @@
 - **Cause:** User does not have a role listed in the RBAC middleware's allowed roles.
 - **Fix:** Verify the user's `roles` array and the roles passed to `authorize()`.
 
-### Cypress headless on CI
-- Install Xvfb: `apt-get install xvfb`
-- Or use: `npm run e2e` which now wraps with `xvfb-run -a`
-- If you still see errors, verify that Chrome is installed or use Electron: `cypress run --headless --browser electron`
-// If Cypress still fails, check that DISPLAY is set or switch to electron browser.
+### Running Cypress in CI / Headless
+- **Locally with Chrome**:
+  ```bash
+  npm run e2e
+  ```
+- **In CI (Electron)**:
+  ```bash
+  npm run e2e:ci
+  ```
+- **In CI with Chrome**:
+  ```bash
+  npm run e2e:chrome
+  ```
+
+#### Cypress CI: browser not found
+**Symptom**: `The browser chrome is not installed.`
+**Solution**:
+  1. Run `npm run e2e:ci` to use Electron, which is bundled with Cypress.
+  2. Or install Chrome in CI by running `npm run install:chrome` before `npm run e2e:chrome`.
