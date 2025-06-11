@@ -1,7 +1,7 @@
 # Sample Web Project
 
 ## Description
-A minimal web project template featuring a simple HTML, CSS, and JavaScript setup. Ideal for quick prototypes or learning purposes.
+A minimal full-stack template with Express back end and React front end.
 
 ## Prerequisites
 - [Node.js](https://nodejs.org/) 14 or higher
@@ -18,38 +18,27 @@ npm install
 ## Project Structure
 ```
 project-root
-├── README.md
-├── .gitignore
 ├── src/
-│   ├── index.html
-│   └── app.js
-├── styles/
-│   └── main.css
-├── scripts/
-│   └── build.sh
-└── docs/
-    └── setup-guide.md
+│   ├── components/
+│   ├── hooks/
+│   ├── utils/
+│   ├── styles/
+│   └── index.jsx
+├── tests/ (server tests)
+├── __tests__/ (frontend unit tests)
+├── cypress/ (e2e tests)
+└── server.js
 ```
 
 ## Usage
 Run the development server:
 ```bash
-npm start
+npm run dev
 ```
-Build optimized assets:
+Run server only:
 ```bash
-npm run build -- --minify
+npm start
 ```
 
 ## Troubleshooting
-1. **Dependencies failing to install**: Ensure you are connected to the internet and using a recent Node.js version. Delete `node_modules` and run `npm install` again.
-2. **Port already in use**: If the development server fails to start, another process may be using the default port. Stop the conflicting process or run `npm start -- --port=3001` to specify a different port.
-3. **Permission denied on scripts**: If `scripts/build.sh` cannot execute, run `chmod +x scripts/build.sh` to make it executable.
-
-## Performance Optimization
-- Minify assets and remove unused dependencies.
-- Consider lazy-loading heavy modules and compressing images.
-- Use `npm run build -- --minify` to generate a smaller production bundle.
-
-## License
-MIT License
+See [docs/troubleshooting.md](docs/troubleshooting.md) for common fixes.

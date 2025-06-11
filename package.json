@@ -1,31 +1,49 @@
 {
   "name": "energyiran-2",
   "version": "1.0.0",
-  "description": "A minimal web project template featuring a simple HTML, CSS, and JavaScript setup. Ideal for quick prototypes or learning purposes.",
+  "description": "A minimal web project with React and Express.",
   "main": "server.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "start": "node server.js",
+    "dev": "vite",
+    "build": "vite build",
     "test": "jest --runInBand",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "e2e": "cypress run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "jest": {
-    "testEnvironment": "node"
-  },
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
-    "pdf-parse": "^1.1.1"
+    "framer-motion": "^11.0.0",
+    "pdf-parse": "^1.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@testing-library/jest-dom": "^6.1.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "babel-jest": "^29.7.0",
+    "cypress": "^13.7.3",
     "jest": "^29.7.0",
-    "supertest": "^6.3.4"
+    "jest-environment-jsdom": "^30.0.0",
+    "postcss": "^8.5.4",
+    "supertest": "^6.3.4",
+    "tailwindcss": "^4.1.9",
+    "vite": "^6.3.5",
+    "vite-plugin-compression": "^0.5.1"
   },
   "__comment": "Use npm run test to execute all tests"
 }
