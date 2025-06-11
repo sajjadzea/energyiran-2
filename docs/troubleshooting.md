@@ -11,3 +11,9 @@
 ## Role Mismatch
 - **Cause:** User does not have a role listed in the RBAC middleware's allowed roles.
 - **Fix:** Verify the user's `roles` array and the roles passed to `authorize()`.
+
+### Cypress headless on CI
+- Install Xvfb: `apt-get install xvfb`
+- Or use: `npm run e2e` which now wraps with `xvfb-run -a`
+- If you still see errors, verify that Chrome is installed or use Electron: `cypress run --headless --browser electron`
+// If Cypress still fails, check that DISPLAY is set or switch to electron browser.
