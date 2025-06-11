@@ -1,0 +1,29 @@
+{
+  "name": "energyiran-2",
+  "version": "1.0.0",
+  "description": "A minimal web project template featuring a simple HTML, CSS, and JavaScript setup. Ideal for quick prototypes or learning purposes.",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  },
+  "__comment": "Use npm run test to execute all tests"
+}
