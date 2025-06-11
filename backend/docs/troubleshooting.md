@@ -1,5 +1,17 @@
 # Troubleshooting
 
+## OrientDB connection refused
+- **Cause:** Database server not running or wrong host/port.
+- **Fix:** Verify OrientDB server status and `.env` configuration.
+
+## Class not found
+- **Cause:** OrientDB schema missing required class.
+- **Fix:** Run migration scripts to create classes. // If class creation fails, check migration script syntax
+
+## Upload permission denied
+- **Cause:** `/uploads` directory not writable.
+- **Fix:** Ensure the folder exists and has proper permissions.
+
 ## CORS Issues
 - **Cause:** Frontend domain not allowed or incorrect headers.
 - **Fix:** Ensure `cors()` is enabled and configured to accept the origin.
