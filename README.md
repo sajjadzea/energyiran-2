@@ -41,6 +41,11 @@ Build optimized assets:
 npm run build -- --minify
 ```
 
+### Testing
+- اجرای همه تست‌ها: `npm test`
+- حالت واچ: `npm run test:watch`
+- پوشش کد: `npm run test:coverage`
+
 ## Troubleshooting
 1. **Dependencies failing to install**: Ensure you are connected to the internet and using a recent Node.js version. Delete `node_modules` and run `npm install` again.
 2. **Port already in use**: If the development server fails to start, another process may be using the default port. Stop the conflicting process or run `npm start -- --port=3001` to specify a different port.
@@ -50,6 +55,12 @@ npm run build -- --minify
 - Minify assets and remove unused dependencies.
 - Consider lazy-loading heavy modules and compressing images.
 - Use `npm run build -- --minify` to generate a smaller production bundle.
+
+## Running Tests
+- Run all tests: `npm test`
+- Watch mode: `npm run test:watch`
+- Generate coverage report: `npm run test:coverage`
+- CI mode: `npm run ci:test`
 
 ## License
 MIT License
