@@ -31,7 +31,9 @@ export default function LoginPage({ onLogin }) {
       >
         <h2 className="text-xl mb-4">Login</h2>
         <div className="mb-4">
+          <label htmlFor="email" className="sr-only">Email</label>
           <input
+            id="email"
             aria-label="Email"
             type="email"
             className="border p-2 w-full"
@@ -40,7 +42,9 @@ export default function LoginPage({ onLogin }) {
           />
         </div>
         <div className="mb-4">
+          <label htmlFor="password" className="sr-only">Password</label>
           <input
+            id="password"
             aria-label="Password"
             type="password"
             className="border p-2 w-full"

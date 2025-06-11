@@ -12,7 +12,9 @@
     "build": "vite build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
-    "e2e": "cypress run"
+    "pree2e": "node -e \"console.log('Cypress started in headless mode')\"",
+    "e2e": "xvfb-run -a -- cypress run --headless --browser chrome",
+    "e2e:ci": "cypress run --headless --browser chrome"
   },
   "keywords": [],
   "author": "",

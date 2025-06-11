@@ -15,3 +15,11 @@
 - **Role Mismatch**
   - **Cause:** User does not have a role listed in the RBAC middleware's allowed roles.
   - **Fix:** Verify the user's `roles` array and the roles passed to `authorize()`.
+
+## Common CI Failures
+- **Cypress fails to start headless**
+  - **Fix:** Install `xvfb` or wrap the command with `xvfb-run -a`. You can also run `cypress run --headless --browser electron`.
+- **Missing npm scripts**
+  - **Fix:** Check `package.json` for the correct script names before running in CI.
+- **Jest cannot find tests**
+  - **Fix:** Review `testMatch` in `jest.config.js` and ensure file paths are correct.

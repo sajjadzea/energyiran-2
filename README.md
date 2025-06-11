@@ -31,14 +31,28 @@ project-root
 ```
 
 ## Usage
-Run the development server:
+Run the React development server:
 ```bash
 npm run dev
 ```
-Run server only:
+Run Express server only:
 ```bash
 npm start
 ```
+Build for production:
+```bash
+npm run build
+```
+
+## Running Tests
+Unit tests:
+```bash
+npm test
+```
+End-to-end tests (headless):
+```bash
+npm run e2e --headless
+```
 
 ## Troubleshooting
-See [docs/troubleshooting.md](docs/troubleshooting.md) for common fixes.
+See [docs/troubleshooting.md](docs/troubleshooting.md) for common fixes, including Cypress Xvfb requirements.
