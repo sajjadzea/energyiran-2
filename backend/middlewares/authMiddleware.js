@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('../config');
+const { config } = require('../config');
 const { error } = require('../utils/logger');
 
 module.exports = function (req, res, next) {
@@ -7,7 +7,7 @@ module.exports = function (req, res, next) {
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) return res.status(401).json({ error: 'Unauthorized' });
   try {
-    const user = jwt.verify(token, jwtSecret);
+    const user = jwt.verify(token, config.jwtSecret);
     req.user = user;
     next();
   } catch (err) {

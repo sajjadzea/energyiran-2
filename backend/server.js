@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
-const { port } = require('./config');
+const { config } = require('./config');
 const authRoutes = require('./routes/auth');
 const graphRoutes = require('./routes/graphs');
 const uploadRoutes = require('./routes/upload');
@@ -28,8 +28,10 @@ app.use(uploadRoutes);
 
 app.use(errorHandler);
 
-app.listen(port, () => {
-  log(`Server running on port ${port}`);
+app.listen(config.port, () => {
+  log(`Server running on port ${config.port}`);
 });
 
-// DEBUG: run with DEBUG=app:* npm run dev
+// Enable connection pooling: client.usePool = true
+// In production, set NODE_ENV=production to disable verbose logs
+module.exports = app;

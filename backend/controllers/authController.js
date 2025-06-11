@@ -1,23 +1,30 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { jwtSecret } = require('../config');
-const { error, log } = require('../utils/logger');
+const { config } = require('../config');
+const { findUserByEmail } = require('../models/user');
+const { log, error } = require('../utils/logger');
 
-// sample user for demo purpose
-const demoUser = { id: 1, email: 'user@example.com', passwordHash: bcrypt.hashSync('password', 8) };
+// Demo fallback user
+const demoUser = { email: 'user@example.com', password: bcrypt.hashSync('secret', 8) };
 
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    log('Login payload:', req.body);
     if (!email || !password) {
       return res.status(400).json({ error: 'InvalidInput' });
     }
-    if (email !== demoUser.email || !bcrypt.compareSync(password, demoUser.passwordHash)) {
-      // If authentication fails, verify JWT_SECRET in .env
+    let user = await findUserByEmail(email);
+    if (!user) {
+      log('Falling back to demo user');
+      user = demoUser;
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+      // If JWT fails, verify JWT_SECRET and user record
       return res.status(401).json({ error: 'AuthFailed' });
     }
-    const token = jwt.sign({ id: demoUser.id, email: demoUser.email }, jwtSecret, { expiresIn: '1h' });
-    log('User logged in:', email);
+    const token = jwt.sign({ email: user.email }, config.jwtSecret, { expiresIn: '1h' });
+    log('JWT created for:', email);
     res.json({ token });
   } catch (err) {
     error('Login error:', err);
