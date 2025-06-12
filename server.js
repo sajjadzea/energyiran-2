@@ -10,13 +10,12 @@ process.on('uncaughtException', (err) => {
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
+const path = require('path');
 
 console.log('==== IMPORTS OK ====');
 
 const app = express();
 
-// Configure Content Security Policy to allow only our domain and API endpoint
-// Other directives (imgSrc, scriptSrc, etc.) can be added if needed.
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -27,6 +26,9 @@ app.use(
     },
   })
 );
+
+// Serve static assets
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 // Serve static assets from the "public" directory
@@ -41,6 +43,11 @@ app.post('/login', (req, res) => {
 app.get('/api/graphs', (req, res) => {
   // Return empty list for now
   res.status(200).json({ data: [] });
+});
+
+// SPA fallback to index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 console.log('==== ROUTES OK ====');
