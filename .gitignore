@@ -31,3 +31,5 @@ coverage
 
 # Mac system files
 .DS_Store
+logs/*
+!logs/.gitkeep
