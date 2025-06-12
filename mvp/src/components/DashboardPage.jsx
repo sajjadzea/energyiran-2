@@ -20,6 +20,10 @@ export default function DashboardPage() {
         setUser(data)
       } catch (err) {
         console.error(err)
+        if (typeof document !== 'undefined') {
+          document.body.innerHTML =
+            '<div>ارتباط با سرور برقرار نشد. لطفا بعدا تلاش کنید.</div>'
+        }
       }
     }
     load()

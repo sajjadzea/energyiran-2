@@ -33,6 +33,11 @@ export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
     return res;
   } catch (err) {
     clearTimeout(timer);
+    if (typeof document !== 'undefined') {
+      document.body.innerHTML =
+        '<div>ارتباط با سرور برقرار نشد. لطفا بعدا تلاش کنید.</div>';
+    }
+    console.error('Fetch error:', err);
     throw err;
   }
 }

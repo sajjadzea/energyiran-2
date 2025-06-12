@@ -22,6 +22,11 @@ export default class Dashboard {
       const posts = await getData('https://jsonplaceholder.typicode.com/posts');
       this.render(posts.slice(0, 5));
     } catch (err) {
+      logError(err, 'Dashboard:load');
+      if (this.root) {
+        this.root.innerHTML =
+          '<div>ارتباط با سرور برقرار نشد. لطفا بعدا تلاش کنید.</div>';
+      }
     }
   }
 
