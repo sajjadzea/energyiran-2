@@ -42,17 +42,21 @@ export async function writeLog(level, message, location) {
   await appendToFile(formatMessage(level, message, location));
 }
 
-export const logDebug = (message, location) => {
-  console.debug(formatMessage('debug', message, location).trim());
-  return writeLog('debug', message, location);
-};
+export async function logDebug(message, source) {
+  const stack = new Error().stack?.split('\n').slice(1).join('\n') || '';
+  const loc = source || getCallerLocation();
+  console.debug(formatMessage('debug', message, loc).trim());
+  return writeLog('debug', `${message}\n${stack}`, loc);
+}
 
-export const logError = (error, location) => {
+export async function logError(error, source) {
   const msg = error instanceof Error ? error.message : String(error);
-  const loc = location || getErrorLocation(error) || getCallerLocation();
+  const stack =
+    (error instanceof Error ? error.stack : new Error().stack)?.split('\n').slice(1).join('\n') || '';
+  const loc = source || getErrorLocation(error) || getCallerLocation();
   console.error(formatMessage('error', msg, loc).trim());
-  return writeLog('error', msg, loc);
-};
+  return writeLog('error', `${msg}\n${stack}`, loc);
+}
 
 export function setupConsoleLogging() {
   ['log', 'error', 'warn'].forEach((method) => {
