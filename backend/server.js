@@ -16,6 +16,24 @@ app.use(cors());
 app.use(compression());
 app.use(morgan('dev'));
 
+const path = require('path');
+
+// 1. Serve React static assets
+const buildPath = path.join(__dirname, '../mvp/build');
+app.use(express.static(buildPath, {
+  maxAge: '30d',
+  etag: false
+}));
+console.debug('Serving React static from', buildPath);
+// Troubleshoot: if static files 404, ensure mvp/build was generated
+
+// 2. Fallback to index.html for client-side routing
+app.get('*', (req, res) => {
+  console.debug('Fallback to index.html for', req.originalUrl);
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
+// Troubleshoot: if index.html not found, verify buildPath and existence of index.html
+
 app.use(authRoutes);
 app.use(graphRoutes);
 app.use(uploadRoutes);
