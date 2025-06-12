@@ -7,20 +7,45 @@
  */
 const cache = new Map();
 
-export async function getData(url, { timeout = 5000 } = {}) {
-  if (cache.has(url)) return cache.get(url);
+function getFromStorage(key) {
+  if (typeof localStorage !== 'undefined') {
+    const item = localStorage.getItem(key);
+    if (item) return JSON.parse(item);
+  }
+  return cache.get(key);
+}
+
+function saveToStorage(key, data) {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  cache.set(key, data);
+}
+
+export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeout);
   try {
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await fetch(url, { ...options, signal: controller.signal });
     clearTimeout(timer);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    cache.set(url, data);
-    return data;
+    return res;
   } catch (err) {
     clearTimeout(timer);
-    if (cache.has(url)) return cache.get(url);
+    throw err;
+  }
+}
+
+export async function getData(url, { timeout = 5000 } = {}) {
+  const cached = getFromStorage(url);
+  if (cached) return cached;
+  try {
+    const res = await fetchWithTimeout(url, {}, timeout);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    saveToStorage(url, data);
+    return data;
+  } catch (err) {
+    if (cached) return cached;
     throw err;
   }
 }
