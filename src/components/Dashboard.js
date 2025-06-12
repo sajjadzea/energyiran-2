@@ -1,3 +1,4 @@
+// Dashboard.js: کامپوننت داشبورد برای نمایش داده‌ها
 /**
  * Dashboard Component
  * -------------------------------
@@ -22,8 +23,7 @@ export default class Dashboard {
       this.render(posts.slice(0, 5));
     } catch (err) {
       logError(err.message);
-      this.root.innerHTML =
-        '<p class="error">خطا در دریافت داده‌ها. لطفاً بعداً دوباره تلاش کنید.</p>';
+      this.root.innerHTML = '<p class="error">خطا در دریافت داده‌ها. لطفاً بعداً دوباره تلاش کنید.</p>';
     }
   }
 
