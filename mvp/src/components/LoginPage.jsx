@@ -1,27 +1,36 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// LoginPage.jsx: فرم ورود کاربر
+/**
+ * Login Page
+ * -------------------------------
+ * Debug: console.error on failed login.
+ * Troubleshoot: validates required fields.
+ * Performance optimization: uses controlled inputs.
+ */
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage({ onLogin }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!email || !password) {
-      setError('Both fields are required')
-      return
+      setError('Both fields are required'); // troubleshoot
+      return;
     }
     try {
-      await onLogin(email, password)
-      navigate('/dashboard')
+      await onLogin(email, password);
+      navigate('/dashboard');
     } catch (err) {
-      console.error(err) // debug
-      setError('Login failed')
+      console.error(err); // debug
+      setError('Login failed');
     }
+    // Performance optimization: controlled inputs minimize re-renders
     // If login hangs, check network in DevTools
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -48,10 +57,13 @@ export default function LoginPage({ onLogin }) {
           />
         </div>
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          type="submit"
+        >
           Sign In
         </button>
       </form>
     </div>
-  )
+  );
 }

@@ -1,3 +1,11 @@
+// vite.config.js: تنظیمات Vite برای پروژه React
+/**
+ * Vite configuration
+ * -------------------------------
+ * Debug: verbose server headers.
+ * Troubleshoot: includes alias to root src.
+ * Performance optimization: outputs to build directory.
+ */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';

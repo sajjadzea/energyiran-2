@@ -1,7 +1,15 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+// eslint.config.js: تنظیمات ESLint برای پروژه React
+/**
+ * ESLint config
+ * -------------------------------
+ * Debug: uses React refresh plugin.
+ * Troubleshoot: ignore build artifacts.
+ * Performance optimization: minimal plugin set.
+ */
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 
 export default [
   { ignores: ['dist', 'build'] },
@@ -30,4 +38,4 @@ export default [
       ],
     },
   },
-]
+];
