@@ -1,3 +1,4 @@
+// api.js: سرویس API برای دریافت داده‌ها با کش داخلی
 /**
  * API Service
  * -------------------------------
@@ -32,7 +33,6 @@ export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
     return res;
   } catch (err) {
     clearTimeout(timer);
-    logError(err, 'api.js:fetchWithTimeout');
     throw err;
   }
 }
@@ -49,6 +49,11 @@ export async function getData(url, { timeout = 5000 } = {}) {
   } catch (err) {
     logError(err, 'api.js:getData');
     if (cached) return cached;
+    if (typeof document !== 'undefined') {
+      document.body.innerHTML =
+        '<div>دریافت اطلاعات با خطا مواجه شد. لطفا بعدا تلاش کنید.</div>';
+    }
+    console.error('Fetch error:', err);
     throw err;
   }
 }
