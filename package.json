@@ -17,7 +17,9 @@
     "e2e": "echo \"🚀 Starting Cypress in headless mode ($npm_lifecycle_event)\" && cypress run --headless --browser chrome",
     "e2e:ci": "echo \"🚀 Starting Cypress in headless mode ($npm_lifecycle_event)\" && cypress run --headless --browser electron",
     "install:chrome": "bash scripts/install-chrome.sh",
-    "e2e:chrome": "npm run install:chrome && cypress run --headless --browser chrome"
+    "e2e:chrome": "npm run install:chrome && cypress run --headless --browser chrome",
+    "lint": "eslint .",
+    "format": "prettier --write"
   },
   "keywords": [],
   "author": "",
@@ -43,7 +45,11 @@
     "jest-environment-jsdom": "^30.0.0",
     "supertest": "^6.3.4",
     "xvfb": "^0.4.0",
-    "@types/jest": "^29.5.11"
+    "@types/jest": "^29.5.11",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "prettier": "^3.0.0"
   },
   "__comment": "Use npm run test to execute all tests"
 }
