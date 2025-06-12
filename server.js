@@ -8,6 +8,7 @@ process.on('uncaughtException', (err) => {
 });
 
 const express = require('express');
+const path = require('path');
 const helmet = require('helmet');
 const path = require('path');
 
@@ -15,7 +16,6 @@ console.log('==== IMPORTS OK ====');
 
 const app = express();
 
-// Apply security headers early
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -31,6 +31,8 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
+// Serve static assets from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 console.log('==== MIDDLEWARE OK ====');
 
 app.post('/login', (req, res) => {
@@ -49,6 +51,12 @@ app.get('*', (req, res) => {
 });
 
 console.log('==== ROUTES OK ====');
+
+// Fallback for Single Page Application routes
+// This should come after all other route handlers
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
