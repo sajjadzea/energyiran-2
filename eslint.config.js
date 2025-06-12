@@ -17,6 +17,7 @@ module.exports = [
       },
     },
     rules: {
+      'operator-linebreak': ['error', 'after'],
       'no-console': 'off',
       'import/prefer-default-export': 'off',
       'import/extensions': 'off',

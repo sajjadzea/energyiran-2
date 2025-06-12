@@ -52,7 +52,10 @@ export async function logDebug(message, source) {
 export async function logError(error, source) {
   const msg = error instanceof Error ? error.message : String(error);
   const stack =
-    (error instanceof Error ? error.stack : new Error().stack)?.split('\n').slice(1).join('\n') || '';
+    (error instanceof Error ? error.stack : new Error().stack)
+      ?.split('\n')
+      .slice(1)
+      .join('\n') || '';
   const loc = source || getErrorLocation(error) || getCallerLocation();
   console.error(formatMessage('error', msg, loc).trim());
   return writeLog('error', `${msg}\n${stack}`, loc);
