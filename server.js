@@ -9,20 +9,26 @@ process.on('uncaughtException', (err) => {
 
 const express = require('express');
 const helmet = require('helmet');
+const path = require('path');
 
 console.log('==== IMPORTS OK ====');
 
 const app = express();
 
-// Configure Content Security Policy to allow only our domain and API endpoint
+// Apply security headers early
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      connectSrc: ["'self'", 'https://jsonplaceholder.typicode.com'],
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        connectSrc: ["'self'", 'https://jsonplaceholder.typicode.com'],
+      },
     },
   })
 );
+
+// Serve static assets
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 console.log('==== MIDDLEWARE OK ====');
@@ -35,6 +41,11 @@ app.post('/login', (req, res) => {
 app.get('/api/graphs', (req, res) => {
   // Return empty list for now
   res.status(200).json({ data: [] });
+});
+
+// SPA fallback to index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 console.log('==== ROUTES OK ====');
