@@ -5,51 +5,33 @@ const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 
-// API routes
-const authRoutes = require('./routes/auth');
-const graphRoutes = require('./routes/graphs');
-const uploadRoutes = require('./routes/upload');
-
 const app = express();
-const PORT = process.env.PORT || 10000;  // Render default PORT=10000
-const HOST = '0.0.0.0';                   // Bind to all interfaces
+const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0';
 
-// Middleware setup
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(compression());
-console.debug('Middleware setup complete');
 
-// API routes
-app.use(authRoutes);
-app.use(graphRoutes);
-app.use(uploadRoutes);
-
-// Serve React static build
 const buildPath = path.join(__dirname, '../mvp/build');
-app.use(express.static(buildPath, {
-  maxAge: '30d',
-  etag: false
-}));
+app.use(express.static(buildPath, { maxAge: '30d', etag: false }));
 console.debug('Serving static from', buildPath);
+
 app.get('*', (req, res) => {
-  console.debug('Fallback for', req.originalUrl);
+  console.debug('Fallback request for', req.originalUrl);
+  // If you hit a 404 here, ensure the React build exists in ../mvp/build
   res.sendFile(path.join(buildPath, 'index.html'));
 });
-// Troubleshoot: if static 404, ensure mvp/build/index.html exists
 
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error('Global error handler:', err);
-  res.status(500).send('Internal Server Error');
-});
-
-// Start server on Render
 app.listen(PORT, HOST, () => {
   console.log(`🚀 Server listening on http://${HOST}:${PORT}`);
 });
-console.debug('Bound to', HOST, 'on port', PORT);
+
+app.use((err, req, res, next) => {
+  console.error('Global error:', err);
+  res.status(500).send('Internal Server Error');
+});
 
 module.exports = app;
