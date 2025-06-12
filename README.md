@@ -42,6 +42,10 @@ npm run build -- --minify
 ```
 
 ### Testing
+```bash
+npm install
+npm test
+```
 - اجرای همه تست‌ها: `npm test`
 - حالت واچ: `npm run test:watch`
 - پوشش کد: `npm run test:coverage`

@@ -25,12 +25,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
 
-console.debug('Environment PORT =', process.env.PORT);
-console.debug('About to bind on 0.0.0.0:', process.env.PORT);
-app.listen(PORT, HOST, () => {
-  console.log(`🚀 Server listening on http://${HOST}:${PORT}`);
-});
-
 app.use((err, req, res, next) => {
   console.error('Global error:', err);
   res.status(500).send('Internal Server Error');
