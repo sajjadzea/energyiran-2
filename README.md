@@ -41,14 +41,11 @@ Build optimized assets:
 npm run build -- --minify
 ```
 
-### Testing
-```bash
-npm install
-npm test
-```
-- اجرای همه تست‌ها: `npm test`
-- حالت واچ: `npm run test:watch`
-- پوشش کد: `npm run test:coverage`
+## Testing
+- Install: `npm install`
+- Run all tests: `npm test`
+- Watch mode: `npm run test:watch`
+- Coverage: `npm run test:coverage`
 
 ## Troubleshooting
 1. **Dependencies failing to install**: Ensure you are connected to the internet and using a recent Node.js version. Delete `node_modules` and run `npm install` again.
@@ -65,6 +62,8 @@ npm test
 - Watch mode: `npm run test:watch`
 - Generate coverage report: `npm run test:coverage`
 - CI mode: `npm run ci:test`
+- In CI, use `--runInBand` to avoid concurrency issues
+- Keep tests fast and isolated; mock external services
 
 ### Running Cypress E2E Tests
 - **Locally with Chrome**:

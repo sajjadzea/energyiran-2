@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "pretest": "echo '🔍 Running tests with Jest...'",
+    "pretest": "echo '🔍 Running Jest test suite...'",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -23,19 +23,7 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "jest": {
-    "testEnvironment": "node",
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "jsx"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.js"
-    ],
-    "collectCoverage": true,
-    "coverageDirectory": "coverage"
-  },
+
   "dependencies": {
     "compression": "^1.8.0",
     "cors": "^2.8.5",
