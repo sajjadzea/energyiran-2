@@ -25,9 +25,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
 
-app.listen(PORT, HOST, () => {
-  console.log(`🚀 Server listening on http://${HOST}:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server listening on http://${HOST}:${PORT}`);
+  });
+}
 
 app.use((err, req, res, next) => {
   console.error('Global error:', err);
