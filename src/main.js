@@ -7,11 +7,18 @@
  * Performance optimization: minimal DOM queries.
  */
 import Dashboard from './components/Dashboard.js';
-import { setupConsoleLogging, logDebug } from './utils/logger.js';
+import { setupConsoleLogging, logDebug, logError } from './utils/logger.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   setupConsoleLogging();
   logDebug('Main: DOMContentLoaded');
   const root = document.getElementById('app');
-  if (root) new Dashboard(root);
+  if (root) {
+    try {
+      new Dashboard(root);
+    } catch (err) {
+      logError(err, 'main.js');
+      root.innerHTML = '<div>Loading failed</div>';
+    }
+  }
 });

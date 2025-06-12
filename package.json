@@ -18,8 +18,11 @@
     "e2e:ci": "echo \"🚀 Starting Cypress in headless mode ($npm_lifecycle_event)\" && cypress run --headless --browser electron",
     "install:chrome": "bash scripts/install-chrome.sh",
     "e2e:chrome": "npm run install:chrome && cypress run --headless --browser chrome",
-    "lint": "eslint .",
-    "format": "prettier --write"
+    "lint": "eslint \"src/**/*.js\" \"mvp/src/**/*.js\" mvp/vite.config.js vite.config.js --quiet",
+    "format": "prettier --write",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
@@ -46,10 +49,12 @@
     "supertest": "^6.3.4",
     "xvfb": "^0.4.0",
     "@types/jest": "^29.5.11",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.1",
+    "@eslint/eslintrc": "^1.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
-    "prettier": "^3.0.0"
+    "prettier": "^2.8.8",
+    "vite": "^6.3.5"
   },
   "__comment": "Use npm run test to execute all tests"
 }

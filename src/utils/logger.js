@@ -5,7 +5,6 @@
  * Troubleshoot: Handles file write errors gracefully.
  * Performance optimization: minimal synchronous operations.
  */
-import { appendFile, mkdir } from 'fs/promises';
 import path from 'path';
 
 function getCallerLocation() {
@@ -23,11 +22,14 @@ function getErrorLocation(error) {
 
 const logFile = path.join(process.cwd(), 'logs', 'debug.log');
 
-async function ensureLogDir() {
+async function appendToFile(message) {
+  if (typeof window !== 'undefined') return;
   try {
-    await mkdir(path.dirname(logFile), { recursive: true });
+    const fs = await import('fs/promises');
+    await fs.mkdir(path.dirname(logFile), { recursive: true });
+    await fs.appendFile(logFile, message);
   } catch (err) {
-    // ignore directory creation errors
+    console.error('Log write failed', err);
   }
 }
 
@@ -37,13 +39,7 @@ function formatMessage(level, message, location = getCallerLocation()) {
 }
 
 export async function writeLog(level, message, location) {
-  try {
-    await ensureLogDir();
-    await appendFile(logFile, formatMessage(level, message, location));
-  } catch (err) {
-    // Troubleshoot: log file permissions or missing directory
-    console.error('Log write failed', err);
-  }
+  await appendToFile(formatMessage(level, message, location));
 }
 
 export const logDebug = (message, location) => {
