@@ -2,9 +2,19 @@ process.on('unhandledRejection', err => console.error('Unhandled Rejection:', er
 process.on('uncaughtException', err => console.error('Uncaught Exception:', err));
 
 const express = require('express');
+const helmet = require('helmet');
 console.log('==== IMPORTS OK ====');
 
 const app = express();
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", 'https://jsonplaceholder.typicode.com'],
+    },
+  })
+);
 
 app.use(express.json());
 console.log('==== MIDDLEWARE OK ====');
