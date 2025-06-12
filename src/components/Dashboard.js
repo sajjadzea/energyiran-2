@@ -7,7 +7,7 @@
  * Troubleshoot: displays user-friendly error messages.
  * Performance optimization: relies on cached responses.
  */
-import { getData } from '../services/api.js';
+import { fetchWithTimeout } from '../services/api.js';
 import { logDebug, logError } from '../utils/logger.js';
 
 export default class Dashboard {
@@ -19,11 +19,17 @@ export default class Dashboard {
   async load() {
     logDebug('Dashboard: fetching posts');
     try {
-      const posts = await getData('https://jsonplaceholder.typicode.com/posts');
+      const posts = await fetchWithTimeout(
+        'https://jsonplaceholder.typicode.com/posts',
+        {},
+        // eslint-disable-next-line comma-dangle
+        5000
+      );
       this.render(posts.slice(0, 5));
     } catch (err) {
       logError(err, 'Dashboard:load');
       if (this.root) {
+        // eslint-disable-next-line operator-linebreak
         this.root.innerHTML =
           '<div>ارتباط با سرور برقرار نشد. لطفا بعدا تلاش کنید.</div>';
       }
@@ -32,12 +38,17 @@ export default class Dashboard {
 
   render(items) {
     this.root.innerHTML = '<h2>Posts</h2>';
-    const ul = document.createElement('ul');
+    const table = document.createElement('table');
+    table.style.width = '100%';
+    const tbody = document.createElement('tbody');
     items.forEach((item) => {
-      const li = document.createElement('li');
-      li.textContent = item.title;
-      ul.appendChild(li);
+      const row = document.createElement('tr');
+      const cell = document.createElement('td');
+      cell.textContent = item.title;
+      row.appendChild(cell);
+      tbody.appendChild(row);
     });
-    this.root.appendChild(ul);
+    table.appendChild(tbody);
+    this.root.appendChild(table);
   }
 }

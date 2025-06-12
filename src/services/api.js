@@ -26,41 +26,26 @@ function saveToStorage(key, data) {
 }
 
 export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
+  const cached = getFromStorage(url);
+  if (cached) return cached;
+
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeout);
   try {
-    // Use AbortController signal to cancel long-running requests
     const res = await fetch(url, { ...options, signal: controller.signal });
     clearTimeout(timer);
-    return res;
-  } catch (err) {
-    clearTimeout(timer);
-    if (typeof document !== 'undefined') {
-      document.body.innerHTML =
-        '<div>ارتباط با سرور برقرار نشد. لطفا بعدا تلاش کنید.</div>';
-    }
-    console.error('Fetch error:', err);
-    throw err;
-  }
-}
-
-export async function getData(url, { timeout = 5000 } = {}) {
-  const cached = getFromStorage(url);
-  if (cached) return cached;
-  try {
-    const res = await fetchWithTimeout(url, {}, timeout);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     saveToStorage(url, data);
     return data;
   } catch (err) {
-    logError(err, 'api.js:getData');
+    clearTimeout(timer);
+    logError(err, 'api.js:fetchWithTimeout');
     if (cached) return cached;
-    if (typeof document !== 'undefined') {
-      document.body.innerHTML =
-        '<div>دریافت اطلاعات با خطا مواجه شد. لطفا بعدا تلاش کنید.</div>';
-    }
-    console.error('Fetch error:', err);
     throw err;
   }
+}
+
+export async function getData(url, { timeout = 5000 } = {}) {
+  return fetchWithTimeout(url, {}, timeout);
 }
