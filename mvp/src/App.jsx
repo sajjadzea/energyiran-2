@@ -1,13 +1,23 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
-import { useAuth } from './hooks/useAuth'
-import './index.css'
+// App.jsx: نقطه شروع اپ React
+/**
+ * App Component
+ * -------------------------------
+ * Debug: logs navigation state.
+ * Troubleshoot: routes unauthorized users to login.
+ * Performance optimization: lazy loads pages with Suspense.
+ */
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { useAuth } from './hooks/useAuth';
+import './index.css';
 
-const LoginPage = lazy(() => import('./components/LoginPage'))
-const DashboardPage = lazy(() => import('./components/DashboardPage'))
+const LoginPage = lazy(() => import('./components/LoginPage'));
+const DashboardPage = lazy(() => import('./components/DashboardPage'));
 
 function App() {
-  const { token, login } = useAuth()
+  const { token, login } = useAuth();
+  console.debug('App token state', token); // debug
+  // Troubleshoot: check token value if navigation loops
 
   return (
     <BrowserRouter>
@@ -22,7 +32,7 @@ function App() {
         </Routes>
       </Suspense>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

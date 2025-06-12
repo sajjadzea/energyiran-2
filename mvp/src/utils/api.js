@@ -1,10 +1,18 @@
+// api.js: توابع API برای React
+/**
+ * API Helpers
+ * -------------------------------
+ * Debug: logs fetch start and end.
+ * Troubleshoot: prints errors and fallback message.
+ * Performance optimization: simple fetch with minimal options.
+ */
 export async function fetchUser(token) {
   console.debug('API fetchUser start');
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
   try {
     const res = await fetch('https://jsonplaceholder.typicode.com/users/1', {
       headers,
-    });
+    }); // performance: minimal fetch options
     console.debug('API fetchUser end');
     if (!res.ok) {
       throw new Error('Network response was not ok');
