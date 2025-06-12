@@ -8,11 +8,19 @@
 import { appendFile } from 'fs/promises';
 import path from 'path';
 
+function getCallerLocation() {
+  const err = new Error();
+  const stackLine = err.stack?.split('\n')[3] || '';
+  const match = stackLine.match(/\(?([^():]+):(\d+):(\d+)\)?/);
+  return match ? `${match[1]}:${match[2]}` : 'unknown';
+}
+
 const logFile = path.join(process.cwd(), 'logs', 'debug.log');
 
 function formatMessage(level, message) {
   const timestamp = new Date().toISOString();
-  return `[${timestamp}] ${level.toUpperCase()}: ${message}\n`;
+  const location = getCallerLocation();
+  return `[${timestamp}] ${level.toUpperCase()} (${location}): ${message}\n`;
 }
 
 export async function writeLog(level, message) {
