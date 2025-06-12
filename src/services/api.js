@@ -7,6 +7,7 @@
  * Performance optimization: caches successful responses in-memory.
  */
 import { logError } from '../utils/logger.js';
+
 const cache = new Map();
 
 function getFromStorage(key) {
@@ -28,6 +29,7 @@ export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeout);
   try {
+    // Use AbortController signal to cancel long-running requests
     const res = await fetch(url, { ...options, signal: controller.signal });
     clearTimeout(timer);
     return res;

@@ -1,12 +1,20 @@
-process.on('unhandledRejection', err => console.error('Unhandled Rejection:', err));
-process.on('uncaughtException', err => console.error('Uncaught Exception:', err));
+// server.js: simple Express server with basic routes and CSP
+// Handles async errors and starts the server when run directly
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
+});
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
 
 const express = require('express');
 const helmet = require('helmet');
+
 console.log('==== IMPORTS OK ====');
 
 const app = express();
 
+// Configure Content Security Policy to allow only our domain and API endpoint
 app.use(
   helmet.contentSecurityPolicy({
     directives: {

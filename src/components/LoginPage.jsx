@@ -1,3 +1,4 @@
+// LoginPage.jsx: simple login form component
 import React, { useState } from 'react';
 
 export default function LoginPage() {
@@ -9,7 +10,7 @@ export default function LoginPage() {
         id="email"
         aria-label="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
       />
     </form>
   );
