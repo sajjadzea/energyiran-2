@@ -23,7 +23,6 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-
   "dependencies": {
     "compression": "^1.8.0",
     "cors": "^2.8.5",
@@ -43,7 +42,8 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^30.0.0",
     "supertest": "^6.3.4",
-    "xvfb": "^0.4.0"
+    "xvfb": "^0.4.0",
+    "@types/jest": "^29.5.11"
   },
   "__comment": "Use npm run test to execute all tests"
 }

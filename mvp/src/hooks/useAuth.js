@@ -4,7 +4,9 @@ export function useAuth() {
   const [token, setToken] = useState(() => localStorage.getItem('token'))
 
   const login = async (email, password) => {
-    // replace with real authentication logic
+    // currently unused, but kept for future auth implementation
+    void email
+    void password
     const fakeToken = 'demo-jwt'
     localStorage.setItem('token', fakeToken)
     setToken(fakeToken)
