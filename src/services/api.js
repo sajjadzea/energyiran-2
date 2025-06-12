@@ -6,7 +6,7 @@
  * Troubleshoot: Catches network errors and provides fallback from cache.
  * Performance optimization: caches successful responses in-memory.
  */
-import { logError } from '../utils/logger.js';
+import * as logger from '../utils/logger.js';
 
 const cache = new Map();
 
@@ -25,14 +25,14 @@ function saveToStorage(key, data) {
   cache.set(key, data);
 }
 
-export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
+export async function fetchWithTimeout(url, opts = {}, timeout = 5000) {
   const cached = getFromStorage(url);
   if (cached) return cached;
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeout);
   try {
-    const res = await fetch(url, { ...options, signal: controller.signal });
+    const res = await fetch(url, { ...opts, signal: controller.signal });
     clearTimeout(timer);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
@@ -40,7 +40,7 @@ export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
     return data;
   } catch (err) {
     clearTimeout(timer);
-    logError(err, 'api.js:fetchWithTimeout');
+    logger.logError(err, 'api.js:fetchWithTimeout');
     if (cached) return cached;
     throw err;
   }
