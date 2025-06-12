@@ -5,6 +5,8 @@
  * Troubleshoot: Catches network errors and provides fallback from cache.
  * Performance optimization: caches successful responses in-memory.
  */
+import { logError } from '../utils/logger.js';
+
 const cache = new Map();
 
 function getFromStorage(key) {
@@ -31,6 +33,7 @@ export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
     return res;
   } catch (err) {
     clearTimeout(timer);
+    logError(`fetch failed: ${err.message}`);
     throw err;
   }
 }
@@ -46,6 +49,7 @@ export async function getData(url, { timeout = 5000 } = {}) {
     return data;
   } catch (err) {
     if (cached) return cached;
+    logError(`getData failed: ${err.message}`);
     throw err;
   }
 }
