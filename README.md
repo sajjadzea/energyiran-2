@@ -81,3 +81,6 @@ npm run build -- --minify
 
 ## License
 MIT License
+
+## Release
+Run `npm run release` to publish using semantic-release.
