@@ -19,7 +19,7 @@
     "install:chrome": "bash scripts/install-chrome.sh",
     "e2e:chrome": "npm run install:chrome && cypress run --headless --browser chrome",
     "lint": "eslint \"src/**/*.js\" \"mvp/src/**/*.js\" mvp/vite.config.js vite.config.js --quiet",
-    "format": "prettier --write",
+    "format": "prettier --write \"public/**/*.html\" \"mvp/**/*.html\" \"src/**/*.{js,jsx}\"",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
