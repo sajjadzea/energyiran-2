@@ -4,9 +4,18 @@ import { Chart } from 'chart.js/auto'
 
 // helper to fetch JSON with error handling
 async function fetchJson(url) {
-  const res = await fetch(url)
-  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`)
-  return res.json()
+  try {
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`)
+    return res.json()
+  } catch (err) {
+    console.error('Fetch error:', err)
+    if (typeof document !== 'undefined') {
+      document.body.innerHTML =
+        '<div>دریافت اطلاعات با خطا مواجه شد. لطفا بعدا تلاش کنید.</div>'
+    }
+    throw err
+  }
 }
 
 let barChart

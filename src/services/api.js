@@ -31,6 +31,11 @@ export async function fetchWithTimeout(url, options = {}, timeout = 5000) {
     return res;
   } catch (err) {
     clearTimeout(timer);
+    if (typeof document !== 'undefined') {
+      document.body.innerHTML =
+        '<div>دریافت اطلاعات با خطا مواجه شد. لطفا بعدا تلاش کنید.</div>';
+    }
+    console.error('Fetch error:', err);
     throw err;
   }
 }
@@ -46,6 +51,11 @@ export async function getData(url, { timeout = 5000 } = {}) {
     return data;
   } catch (err) {
     if (cached) return cached;
+    if (typeof document !== 'undefined') {
+      document.body.innerHTML =
+        '<div>دریافت اطلاعات با خطا مواجه شد. لطفا بعدا تلاش کنید.</div>';
+    }
+    console.error('Fetch error:', err);
     throw err;
   }
 }
