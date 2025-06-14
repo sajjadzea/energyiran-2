@@ -88,3 +88,13 @@ MIT License
 
 ## Release
 Run `npm run release` to publish using semantic-release.
+
+## Docker Usage
+To run the backend together with PostgreSQL and MongoDB use Docker Compose:
+```bash
+docker-compose up --build
+```
+The React frontend image can be built separately:
+```bash
+docker build -t my-frontend ./mvp
+```
