@@ -45,6 +45,16 @@ Generate coverage:
 npm run test:coverage
 ```
 
+### Running Cypress E2E Tests
+Headless mode:
+```bash
+npm run e2e
+```
+Run with a browser:
+```bash
+npx cypress open
+```
+
 ## Debugging
 Enable verbose logging:
 ```bash

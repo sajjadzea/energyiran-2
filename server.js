@@ -11,6 +11,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const helmet = require('helmet');
+const graphsController = require('./backend/controllers/graphsController');
 
 console.log('==== IMPORTS OK ====');
 
@@ -53,9 +54,12 @@ app.post('/login', (req, res) => {
   res.status(200).json({ message: 'Logged in', token: 'fake-token' });
 });
 
-app.get('/api/graphs', (req, res) => {
-  // Return empty list for now
-  res.status(200).json({ data: [] });
+app.get('/api/graphs', async (req, res, next) => {
+  try {
+    await graphsController.getGraphs(req, res, next);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.get('/api/dashboard/data.json', async (req, res, next) => {

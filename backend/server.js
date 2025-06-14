@@ -85,23 +85,27 @@ try {
   });
   console.log('==== BOOT: Middleware OK ====');
 
-  console.log('==== BOOT: About to listen on PORT', PORT, 'HOST', HOST);
-  const server = app.listen(PORT, HOST, () => {
-    console.log('==== BOOT: Listening on', PORT);
-    console.log('==== BOOT: Startup completed ====');
-    console.log(`🚀 Listening on http://${HOST}:${PORT}`);
-  });
-  server.keepAliveTimeout = 120000; // 120 seconds
-  server.headersTimeout = 120000; // 120 seconds
-  console.debug('keepAliveTimeout and headersTimeout set to 120000');
-  // Troubleshoot: if still 502, verify HOST and PORT values in env
+  if (require.main === module && process.env.NODE_ENV !== 'test') {
+    console.log('==== BOOT: About to listen on PORT', PORT, 'HOST', HOST);
+    const server = app.listen(PORT, HOST, () => {
+      console.log('==== BOOT: Listening on', PORT);
+      console.log('==== BOOT: Startup completed ====');
+      console.log(`🚀 Listening on http://${HOST}:${PORT}`);
+    });
+    server.keepAliveTimeout = 120000; // 120 seconds
+    server.headersTimeout = 120000; // 120 seconds
+    console.debug('keepAliveTimeout and headersTimeout set to 120000');
+    // Troubleshoot: if still 502, verify HOST and PORT values in env
+  }
 } catch (err) {
   if (err && err.code === 'MODULE_NOT_FOUND') {
     console.error('==== ERROR: Missing module ==== ', err.message);
   } else {
     console.error('==== ERROR: Critical boot error:', err);
   }
-  process.exit(1);
+  if (process.env.NODE_ENV !== 'test') {
+    process.exit(1);
+  }
 }
 
 module.exports = app;

@@ -5,6 +5,7 @@ const jwtMiddleware = require('../middlewares/jwtMiddleware');
 const { authorize } = require('../middlewares/rbacMiddleware');
 const { log } = require('../utils/logger');
 
+router.post('/register', authController.register);
 router.post('/login', authController.login);
 
 router.get('/admin-only', jwtMiddleware, authorize(['admin']), (req, res) => {
