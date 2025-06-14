@@ -10,18 +10,21 @@ process.on('uncaughtException', (err) => {
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
-const path = require('path');
 
 console.log('==== IMPORTS OK ====');
 
 const app = express();
 
+// Apply CSP headers allowing fetches to jsonplaceholder
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
         connectSrc: ["'self'", 'https://jsonplaceholder.typicode.com'],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:'],
       },
     },
   })

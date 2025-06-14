@@ -25,7 +25,19 @@ try {
   app = express();
 
   // Core middlewares
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          connectSrc: ["'self'", 'https://jsonplaceholder.typicode.com'],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          imgSrc: ["'self'", 'data:'],
+        },
+      },
+    })
+  );
   console.log('==== BOOT: Middleware OK ====');
   app.use(cors());
   console.log('==== BOOT: Middleware OK ====');
