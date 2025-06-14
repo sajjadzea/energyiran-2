@@ -1,62 +1,33 @@
-// If class creation fails, check migration script syntax
-const { client, config } = require('../config');
-const { error } = require('../utils/logger');
+const mongoose = require('mongoose');
 
-async function getSession() {
-  if (!client) {
-    error('OrientDB client not connected');
-    return null;
-  }
-  return client.session({
-    name: config.orient.database,
-    username: config.orient.user,
-    password: config.orient.password,
-  });
-}
+const graphNodeSchema = new mongoose.Schema({
+  label: String,
+  props: mongoose.Schema.Types.Mixed,
+});
+
+const graphEdgeSchema = new mongoose.Schema({
+  from: { type: mongoose.Schema.Types.ObjectId, ref: 'GraphNode' },
+  to: { type: mongoose.Schema.Types.ObjectId, ref: 'GraphNode' },
+  props: mongoose.Schema.Types.Mixed,
+});
+
+const GraphNode = mongoose.model('GraphNode', graphNodeSchema);
+const GraphEdge = mongoose.model('GraphEdge', graphEdgeSchema);
 
 async function insertNode(data) {
-  let session;
-  try {
-    session = await getSession();
-    if (!session) return null;
-    const record = await session.insert().into('GraphNode').set(data).one();
-    return record;
-  } catch (err) {
-    error('Insert Node failed:', err); // If insert fails, verify client session is open
-    throw err;
-  } finally {
-    if (session) await session.close();
-  }
+  const node = new GraphNode(data);
+  return node.save();
 }
 
 async function insertEdge(data) {
-  let session;
-  try {
-    session = await getSession();
-    if (!session) return null;
-    const edge = await session.create('EDGE', 'GraphEdge').from(data.from).to(data.to).set(data.props || {}).one();
-    return edge;
-  } catch (err) {
-    error('Insert Edge failed:', err);
-    throw err;
-  } finally {
-    if (session) await session.close();
-  }
+  const edge = new GraphEdge(data);
+  return edge.save();
 }
 
-async function traverse(startRid) {
-  let session;
-  try {
-    session = await getSession();
-    if (!session) return [];
-    const result = await session.query(`TRAVERSE * FROM ${startRid}`);
-    return result;
-  } catch (err) {
-    error('Traverse failed:', err);
-    throw err;
-  } finally {
-    if (session) await session.close();
-  }
+async function traverse(startId) {
+  const node = await GraphNode.findById(startId).lean();
+  const edges = await GraphEdge.find({ $or: [{ from: startId }, { to: startId }] }).lean();
+  return { node, edges };
 }
 
-module.exports = { insertNode, insertEdge, traverse };
+module.exports = { insertNode, insertEdge, traverse, GraphNode, GraphEdge };

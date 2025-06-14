@@ -1,7 +1,7 @@
 # Developer Guide
 
 ## Getting Started
-1. Install Node.js, OrientDB, and Docker.
+1. Install Node.js, PostgreSQL, MongoDB, and Docker.
 2. Clone this repository and install dependencies:
 ```bash
 git clone <repository-url>
@@ -50,7 +50,7 @@ Enable verbose logging:
 ```bash
 DEBUG=app:* npm run dev
 ```
-Check OrientDB Studio for class or schema issues.
+Check your PostgreSQL and MongoDB instances for schema issues.
 
 ## Deployment
 Build containers and deploy:
