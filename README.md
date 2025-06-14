@@ -64,6 +64,7 @@ npm run build -- --minify
 - CI mode: `npm run ci:test`
 - In CI, use `--runInBand` to avoid concurrency issues
 - Keep tests fast and isolated; mock external services
+- If `jest` is not found, run `npm install --save-dev jest`
 
 ### Running Cypress E2E Tests
 - **Locally with Chrome**:
