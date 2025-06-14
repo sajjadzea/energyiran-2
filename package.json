@@ -2,13 +2,13 @@
   "name": "energyiran-2",
   "version": "1.0.0",
   "description": "Full-stack template using Express backend with a React frontend.",
-  "main": "server.js",
+  "main": "backend/server.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "prestart": "npm --prefix mvp run build",
-    "start": "node server.js",
+    "start": "node backend/server.js",
     "pretest": "echo '🔍 Running Jest test suite...'",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",

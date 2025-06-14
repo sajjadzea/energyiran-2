@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../server.js';
+import app from '../../backend/server.js';
 
 // If this test times out, increase Jest timeout via jest.setTimeout
 // Ensure authentication flow returns a token before requesting graphs

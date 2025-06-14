@@ -25,7 +25,6 @@ project-root
 ├── scripts/
 └── docs/
 ```
-Legacy vanilla JS files now reside in the `legacy/` folder.
 
 ## Usage
 Run the development server (the React dashboard is built automatically):
