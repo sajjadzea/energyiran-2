@@ -77,3 +77,21 @@ Running `npm test` from the project root executes all Jest tests under `tests` a
 The Express server serves the React dashboard from `mvp/build`. The `npm start` command builds the React app first (via `prestart`) and then launches the server.
 
 After starting, verify the dashboard loads at `http://localhost:3000` and check `GET /api/dashboard/data.json` for sample data.
+
+## Docker Compose for Development
+Run all services together:
+```bash
+docker-compose up --build
+```
+This command launches the Node API on port `10000` and starts PostgreSQL and MongoDB containers. Update `.env` to match the credentials defined in `docker-compose.yml`.
+
+## Hot Reload & Debugging
+During backend development you can use `nodemon` for automatic restarts:
+```bash
+npx nodemon backend/server.js
+```
+The React frontend supports hot reload using:
+```bash
+npm run dev
+```
+Application logs are written under the `logs/` directory when running via Docker Compose.
