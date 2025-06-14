@@ -62,3 +62,8 @@ project-root
 ```
 
 Running `npm test` from the project root executes all Jest tests under `tests` and `backend/tests`.
+
+## Running the Application
+The Express server serves the React dashboard from `mvp/build`. The `npm start` command builds the React app first (via `prestart`) and then launches the server.
+
+After starting, verify the dashboard loads at `http://localhost:3000` and check `GET /api/dashboard/data.json` for sample data.

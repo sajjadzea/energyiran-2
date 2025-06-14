@@ -32,14 +32,17 @@ project-root
 ```
 
 ## Usage
-Run the development server:
+Run the development server (the React dashboard is built automatically):
 ```bash
 npm start
 ```
-Build optimized assets:
+To build the React app manually use:
 ```bash
-npm run build -- --minify
+npm --prefix mvp run build
 ```
+
+Verify the API endpoints are reachable:
+- `GET /api/dashboard/data.json` should return dashboard metrics in JSON format.
 
 ## Testing
 - Install: `npm install`

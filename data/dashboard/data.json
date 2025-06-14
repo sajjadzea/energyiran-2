@@ -1,0 +1,16 @@
+{
+  "kpis": [
+    {"title": "Total Users", "value": 100},
+    {"title": "Active Sessions", "value": 15}
+  ],
+  "categoryCounts": [
+    {"category": "economic", "count": 10},
+    {"category": "environmental", "count": 5},
+    {"category": "social", "count": 8}
+  ],
+  "timeSeries": [
+    {"label": "Jan", "value": 3},
+    {"label": "Feb", "value": 4},
+    {"label": "Mar", "value": 5}
+  ]
+}
