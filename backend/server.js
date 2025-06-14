@@ -48,6 +48,13 @@ try {
   app.use(compression());
   console.log('==== BOOT: Middleware OK ====');
 
+  const authRouter = require('./routes/auth');
+  const graphsRouter = require('./routes/graphs');
+  const uploadRouter = require('./routes/upload');
+  app.use('/', authRouter);
+  app.use('/', graphsRouter);
+  app.use('/', uploadRouter);
+
   const buildPath = path.join(__dirname, '../mvp/build');
   if (!fs.existsSync(buildPath)) {
     console.error('==== ERROR: Build path not found:', buildPath);

@@ -8,6 +8,7 @@ process.on('uncaughtException', (err) => {
 });
 
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const helmet = require('helmet');
 
@@ -30,12 +31,21 @@ app.use(
   })
 );
 
-// Serve static assets
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.json());
-// Serve static assets from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
+
+const buildPath = path.join(__dirname, 'mvp', 'build');
+app.use(express.static(buildPath));
+
+app.use((req, res, next) => {
+  if (
+    req.method === 'GET' &&
+    path.extname(req.path) &&
+    !fs.existsSync(path.join(buildPath, req.path))
+  ) {
+    console.warn('Missing asset request:', req.path);
+  }
+  next();
+});
 console.log('==== MIDDLEWARE OK ====');
 
 app.post('/login', (req, res) => {
@@ -48,18 +58,22 @@ app.get('/api/graphs', (req, res) => {
   res.status(200).json({ data: [] });
 });
 
+app.get('/api/dashboard/data.json', async (req, res, next) => {
+  try {
+    const file = path.join(__dirname, 'data', 'dashboard', 'data.json');
+    const text = await fs.promises.readFile(file, 'utf8');
+    res.json(JSON.parse(text));
+  } catch (err) {
+    next(err);
+  }
+});
+
 // SPA fallback to index.html for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
 
 console.log('==== ROUTES OK ====');
-
-// Fallback for Single Page Application routes
-// This should come after all other route handlers
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
