@@ -1,11 +1,12 @@
 const request = require('supertest');
-const app = require('../../server');
+process.env.JWT_SECRET = 'testsecret';
+const app = require('../server');
 
 const fs = require('fs');
 const path = require('path');
 
 describe('GET /api/graphs', () => {
-  it('returns graph data from files', async () => {
+
     const loginRes = await request(app)
       .post('/login')
       .send({ email: 'user@example.com', password: 'secret' });

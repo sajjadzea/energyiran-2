@@ -1,9 +1,14 @@
 const { error, log } = require('../utils/logger');
+const { getUserRoles } = require('../models/user');
 
 function authorize(allowedRoles = []) {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     try {
-      const userRoles = req.user && req.user.roles ? req.user.roles : [];
+      const userId = req.user && req.user.userId;
+      let userRoles = [];
+      if (userId) {
+        userRoles = await getUserRoles(userId);
+      }
       log('RBAC roles:', userRoles, 'allowed:', allowedRoles);
       const hasRole = allowedRoles.some((role) => userRoles.includes(role));
       if (hasRole) {
@@ -14,7 +19,6 @@ function authorize(allowedRoles = []) {
       error('RBAC check failed:', err);
       next(err);
     }
-    // If access is denied unexpectedly, verify user.roles array
   };
 }
 

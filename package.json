@@ -37,8 +37,7 @@
     "express": "^4.21.2",
     "helmet": "^8.1.0",
     "morgan": "^1.10.0",
-    "orientjs": "^3.2.0",
-    "pdf-parse": "^1.1.1"
+
   },
   "devDependencies": {
     "@babel/preset-env": "^7.27.2",
