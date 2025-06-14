@@ -6,3 +6,7 @@ This document explains how to set up the project locally.
 2. Clone the repository: `git clone <repository-url>`
 3. Install dependencies: `npm install`
 4. Run the development server: `npm start`
+5. Start the services using Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
