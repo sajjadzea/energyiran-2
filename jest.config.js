@@ -9,8 +9,7 @@ module.exports = {
     '^.+\\.[jt]sx?$': 'babel-jest',
   },
   moduleNameMapper: {
-    '^react$': '<rootDir>/mvp/node_modules/react',
-    '^react-dom$': '<rootDir>/mvp/node_modules/react-dom',
+
   },
   // Debug: Use DEBUG=jest* for verbose logs
 };
