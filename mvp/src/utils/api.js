@@ -28,4 +28,30 @@ export async function fetchUser(token) {
     throw err;
   }
 }
+
+export async function fetchDashboardData() {
+  console.debug('API fetchDashboardData start');
+  try {
+    const res = await fetch('/api/dashboard/data.json');
+    console.debug('API fetchDashboardData end');
+    if (!res.ok) throw new Error('Network response was not ok');
+    return res.json();
+  } catch (err) {
+    console.error('Fetch error:', err);
+    throw err;
+  }
+}
+
+export async function fetchGraphData() {
+  console.debug('API fetchGraphData start');
+  try {
+    const res = await fetch('/api/graphs');
+    console.debug('API fetchGraphData end');
+    if (!res.ok) throw new Error('Network response was not ok');
+    return res.json();
+  } catch (err) {
+    console.error('Fetch error:', err);
+    throw err;
+  }
+}
 // If data doesn’t load, verify API URL in api.js
