@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../server.js';
+import app from '../../backend/server.js';
 
 describe('GET /api/dashboard/data.json', () => {
   it('returns dashboard metrics', async () => {

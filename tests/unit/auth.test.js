@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../server.js';
+import app from '../../backend/server.js';
 
 // If this test times out, increase Jest timeout via jest.setTimeout
 // If test fails with 404, verify that server.js exports the Express app
