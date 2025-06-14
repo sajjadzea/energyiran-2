@@ -1,7 +1,7 @@
 # Sample Web Project
 
 ## Description
-A minimal web project template featuring a simple HTML, CSS, and JavaScript setup. Ideal for quick prototypes or learning purposes.
+A full-stack project using an Express API and React frontend.
 
 ## Prerequisites
 - [Node.js](https://nodejs.org/) 14 or higher
@@ -19,17 +19,12 @@ npm install
 ```
 project-root
 ├── README.md
-├── .gitignore
-├── src/
-│   ├── index.html
-│   └── app.js
-├── styles/
-│   └── main.css
+├── backend/
+├── mvp/
 ├── scripts/
-│   └── build.sh
 └── docs/
-    └── setup-guide.md
 ```
+Legacy vanilla JS files now reside in the `legacy/` folder.
 
 ## Usage
 Run the development server (the React dashboard is built automatically):

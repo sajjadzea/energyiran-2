@@ -24,7 +24,7 @@ npm start
 ## Directory Layout
 ```
 project-root
-├── src/
+├── legacy/src/
 ├── js/
 ├── data/
 ├── docs/

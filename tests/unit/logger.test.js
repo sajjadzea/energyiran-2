@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { logError } from '../../src/utils/logger.js';
+import { logError } from '../../legacy/src/utils/logger.js';
 
 describe('logger utility', () => {
   const logPath = path.join(process.cwd(), 'logs', 'debug.log');

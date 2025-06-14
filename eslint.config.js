@@ -6,7 +6,7 @@ const compat = new FlatCompat();
 module.exports = [
   ...compat.extends('airbnb-base'),
   {
-    files: ['src/**/*.js', 'mvp/**/*.js'],
+    files: ['mvp/**/*.js'],
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: 'module',
@@ -25,7 +25,7 @@ module.exports = [
     },
   },
   {
-    files: ['vite.config.js', 'mvp/vite.config.js'],
+    files: ['mvp/vite.config.js'],
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: 'module',
