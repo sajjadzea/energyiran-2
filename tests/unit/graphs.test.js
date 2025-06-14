@@ -8,7 +8,9 @@ describe('GET /api/graphs', () => {
   it('returns graph data', async () => {
     const res = await request(app).get('/api/graphs');
     expect(res.statusCode).toBe(200);
-    expect(res.body).toHaveProperty('data');
-    expect(Array.isArray(res.body.data)).toBe(true);
+    expect(res.body).toHaveProperty('nodes');
+    expect(res.body).toHaveProperty('links');
+    expect(Array.isArray(res.body.nodes)).toBe(true);
+    expect(Array.isArray(res.body.links)).toBe(true);
   });
 });

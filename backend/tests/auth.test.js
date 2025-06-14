@@ -1,9 +1,14 @@
 const request = require('supertest');
-const app = require('../../server');
+process.env.JWT_SECRET = 'testsecret';
+const app = require('../server');
 
-// If test times out, increase Jest timeout or check connection
-describe('POST /login', () => {
-  it('responds with a token', async () => {
+describe('auth flow', () => {
+  it('registers then logs in', async () => {
+    const register = await request(app)
+      .post('/register')
+      .send({ email: 'user@example.com', password: 'secret', roles: ['admin'] });
+    expect(register.statusCode).toBe(201);
+
     const res = await request(app)
       .post('/login')
       .send({ email: 'user@example.com', password: 'secret' });
