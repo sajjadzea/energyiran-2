@@ -1,0 +1,18 @@
+[
+  {
+    "id": "node1",
+    "title": "Solar energy expansion",
+    "summary": "Expanding solar energy reduces fossil fuels and leads to job creation in renewable sector.",
+    "source": "sample",
+    "page": 1,
+    "category": "economic"
+  },
+  {
+    "id": "node2",
+    "title": "Job creation in renewable sector",
+    "summary": "Job creation in renewable sector is accelerated by solar energy expansion and investment.",
+    "source": "sample",
+    "page": 2,
+    "category": "economic"
+  }
+]

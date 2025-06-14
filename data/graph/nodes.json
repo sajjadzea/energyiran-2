@@ -1,0 +1,16 @@
+[
+  {
+    "id": "node1",
+    "label": "Solar energy expansion",
+    "category": "economic",
+    "source": "sample",
+    "page": 1
+  },
+  {
+    "id": "node2",
+    "label": "Job creation in renewable sector",
+    "category": "economic",
+    "source": "sample",
+    "page": 2
+  }
+]
