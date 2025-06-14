@@ -3,7 +3,7 @@
  */
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import LoginPage from '../../../src/components/LoginPage.jsx';
+import LoginPage from '../../../mvp/src/components/LoginPage.jsx';
 
 // If this test times out, increase Jest timeout via jest.setTimeout
 

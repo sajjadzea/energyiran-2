@@ -1,7 +1,7 @@
 {
   "name": "energyiran-2",
   "version": "1.0.0",
-  "description": "A minimal web project template featuring a simple HTML, CSS, and JavaScript setup. Ideal for quick prototypes or learning purposes.",
+  "description": "Full-stack template using Express backend with a React frontend.",
   "main": "server.js",
   "directories": {
     "doc": "docs"
@@ -19,11 +19,11 @@
     "e2e:ci": "echo \"🚀 Starting Cypress in headless mode ($npm_lifecycle_event)\" && cypress run --headless --browser electron",
     "install:chrome": "bash scripts/install-chrome.sh",
     "e2e:chrome": "npm run install:chrome && cypress run --headless --browser chrome",
-    "lint": "eslint \"src/**/*.js\" \"mvp/src/**/*.js\" mvp/vite.config.js vite.config.js --quiet",
-    "format": "prettier --write \"public/**/*.html\" \"mvp/**/*.html\" \"src/**/*.{js,jsx}\"",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "lint": "eslint \"mvp/src/**/*.js\" mvp/vite.config.js --quiet",
+    "format": "prettier --write \"mvp/**/*.html\" \"mvp/src/**/*.{js,jsx}\"",
+    "dev": "npm --prefix mvp run dev",
+    "build": "npm --prefix mvp run build",
+    "preview": "npm --prefix mvp run preview",
     "release": "semantic-release"
   },
   "keywords": [],
@@ -36,8 +36,7 @@
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "helmet": "^8.1.0",
-    "morgan": "^1.10.0",
-
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.27.2",
