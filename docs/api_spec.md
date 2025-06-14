@@ -1,5 +1,38 @@
 # API Reference
 
+## /register (POST)
+**Endpoint:** `POST /register`
+
+**Description:** Create a new user account.
+
+### Request
+- Headers:
+  - `Content-Type: application/json`
+- Body parameters:
+  - `email` (string, required)
+  - `password` (string, required)
+  - `roles` (array of strings, optional)
+- Example:
+```json
+{
+  "email": "new@example.com",
+  "password": "secret",
+  "roles": ["admin"]
+}
+```
+
+### Response
+- Success: `201 Created`
+```json
+{
+  "id": 1,
+  "email": "new@example.com"
+}
+```
+- Error: `409 Conflict` "User exists"
+
+**Debug:** Ensure PostgreSQL is running and reachable.
+
 ## /login (POST)
 **Endpoint:** `POST /login`
 
@@ -32,6 +65,27 @@
 **Debug:** Check logs if a 500 occurs.
 
 **Troubleshoot:** If you receive 401, verify `JWT_SECRET` and token payload.
+
+## /admin-only (GET)
+**Endpoint:** `GET /admin-only`
+
+**Description:** Protected test route requiring the `admin` role.
+
+### Request
+- Headers:
+  - `Authorization: Bearer <token>`
+- No parameters.
+
+### Response
+- Success: `200 OK`
+```json
+{
+  "message": "Welcome, admin!"
+}
+```
+- Errors: `401 Unauthorized`, `403 Forbidden`
+
+**Debug:** Ensure the user has the `admin` role in PostgreSQL.
 
 ## /api/graphs (GET)
 **Endpoint:** `GET /api/graphs`

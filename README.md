@@ -14,6 +14,7 @@ git clone <repository-url>
 cd <project-root>
 npm install
 ```
+Copy `.env.example` to `.env` and adjust database credentials if needed.
 
 ## Project Structure
 ```
@@ -84,12 +85,32 @@ MIT License
 ## Release
 Run `npm run release` to publish using semantic-release.
 
-## Docker Usage
-To run the backend together with PostgreSQL and MongoDB use Docker Compose:
+## اجرای Docker Compose
+برای اجرا کردن تمام سرویس‌ها به صورت محلی از Docker Compose استفاده کنید:
 ```bash
 docker-compose up --build
 ```
-The React frontend image can be built separately:
-```bash
-docker build -t my-frontend ./mvp
+کانتینر Node روی پورت `10000` در دسترس خواهد بود و پایگاه‌های داده PostgreSQL و MongoDB نیز اجرا می‌شوند.
+
+## دسترسی به API
+پس از راه‌اندازی، آدرس پایه API عبارت است از:
+```
+http://localhost:10000
+```
+مسیرهای مهم:
+- `POST /register` – ثبت‌نام کاربر
+- `POST /login` – دریافت توکن
+- `GET /admin-only` – فقط برای نقش admin
+- `GET /api/graphs` – بازیابی گراف
+- `POST /api/upload` – آپلود فایل
+- `GET /api/dashboard/data.json` – داده‌های داشبورد
+
+## مسیرهای اصلی پروژه
+```
+project-root
+├── backend/      # کد Node و API
+├── mvp/          # کد React
+├── data/         # داده‌های نمونه
+├── docs/         # مستندات
+└── scripts/      # اسکریپت‌های کمکی
 ```

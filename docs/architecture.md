@@ -5,11 +5,14 @@ This system provides a simple full-stack template using Node.js, Express, and Re
 
 ## High-Level Diagram
 ```mermaid
-graph LR
-  FE[React SPA] --> BE[Express API]
-  BE --> PG[(PostgreSQL)]
-  BE --> MG[(MongoDB)]
-  BE --> Docs[docs/]
+graph TD
+  User[Browser] --> SPA[React SPA]
+  SPA --> API[Express API]
+  subgraph Services
+    API --> Postgres[(PostgreSQL)]
+    API --> Mongo[(MongoDB)]
+  end
+  API --> Docs[Docs]
 ```
 <!-- If this diagram doesn’t render, ensure Mermaid support in your Markdown viewer -->
 
