@@ -1,12 +1,12 @@
 # Troubleshooting
 
-## OrientDB connection refused
-- **Cause:** Database server not running or wrong host/port.
-- **Fix:** Verify OrientDB server status and `.env` configuration.
+## Database connection refused
+- **Cause:** PostgreSQL or MongoDB server not running or wrong host/port.
+- **Fix:** Verify database services and `.env` configuration.
 
-## Class not found
-- **Cause:** OrientDB schema missing required class.
-- **Fix:** Run migration scripts to create classes. // If class creation fails, check migration script syntax
+## Table or collection not found
+- **Cause:** Schema missing required table or collection.
+- **Fix:** Run migration scripts to create tables or collections. // If creation fails, check migration script syntax
 
 ## Upload permission denied
 - **Cause:** `/uploads` directory not writable.

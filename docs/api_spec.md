@@ -36,7 +36,7 @@
 ## /api/graphs (GET)
 **Endpoint:** `GET /api/graphs`
 
-**Description:** Retrieve graph data from OrientDB.
+**Description:** Retrieve graph data stored in MongoDB.
 
 ### Request
 - Headers:

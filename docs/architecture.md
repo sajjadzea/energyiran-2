@@ -1,13 +1,14 @@
 # Project Architecture
 
 ## Overview
-This system provides a simple full-stack template using Node.js, Express, and React to deliver a single-page application backed by an API. It connects to an OrientDB database and is packaged for containerized deployment.
+This system provides a simple full-stack template using Node.js, Express, and React to deliver a single-page application backed by an API. It connects to PostgreSQL for relational data and MongoDB for graph storage and is packaged for containerized deployment.
 
 ## High-Level Diagram
 ```mermaid
 graph LR
   FE[React SPA] --> BE[Express API]
-  BE --> DB[OrientDB]
+  BE --> PG[(PostgreSQL)]
+  BE --> MG[(MongoDB)]
   BE --> Docs[docs/]
 ```
 <!-- If this diagram doesn’t render, ensure Mermaid support in your Markdown viewer -->
@@ -17,7 +18,7 @@ graph LR
 |---------------|-----------------------------------------------|
 | Frontend      | React, Vite, JavaScript                        |
 | Backend       | Express, Node.js                               |
-| Database      | OrientDB via orientjs                          |
+| Database      | PostgreSQL via Sequelize, MongoDB via Mongoose |
 | Testing       | Jest, Cypress                                  |
 | Containerization | Docker, Docker Compose                       |
 | CI/CD         | GitHub Actions                                 |
