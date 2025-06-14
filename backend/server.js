@@ -96,7 +96,11 @@ try {
   console.debug('keepAliveTimeout and headersTimeout set to 120000');
   // Troubleshoot: if still 502, verify HOST and PORT values in env
 } catch (err) {
-  console.error('==== ERROR: Critical boot error:', err);
+  if (err && err.code === 'MODULE_NOT_FOUND') {
+    console.error('==== ERROR: Missing module ==== ', err.message);
+  } else {
+    console.error('==== ERROR: Critical boot error:', err);
+  }
   process.exit(1);
 }
 
