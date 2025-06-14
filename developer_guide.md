@@ -37,6 +37,16 @@ This guide explains how to install dependencies, run unit tests with Jest, and t
   npm run ci:test
   ```
 
+### Running Cypress E2E Tests
+Run headless tests:
+```bash
+npm run e2e
+```
+Open Cypress in a browser:
+```bash
+npx cypress open
+```
+
 ### Installing Jest
 If you see `jest: command not found`, install Jest as a development dependency:
 ```bash
