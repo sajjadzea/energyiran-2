@@ -1,47 +1,39 @@
-// If class creation fails, check migration script syntax
-const { client, config } = require('../config');
+const bcrypt = require('bcryptjs');
+const { pool } = require('../config/pgClient');
 const { error } = require('../utils/logger');
 
-async function getSession() {
-  if (!client) {
-    error('OrientDB client not connected');
-    return null;
-  }
-  return client.session({
-    name: config.orient.database,
-    username: config.orient.user,
-    password: config.orient.password,
-  });
-}
-
-async function insertUser(data) {
-  let session;
+async function insertUser({ email, password, roles = [] }) {
+  const hashed = bcrypt.hashSync(password, 8);
   try {
-    session = await getSession();
-    if (!session) return null;
-    const record = await session.insert().into('User').set(data).one();
-    return record;
+    const res = await pool.query(
+      'INSERT INTO users(email, password, roles) VALUES($1,$2,$3) RETURNING id, email, roles',
+      [email, hashed, roles]
+    );
+    return res.rows[0];
   } catch (err) {
-    error('Insert User failed:', err); // If insert fails, verify client session is open
+    error('Insert User failed:', err);
     throw err;
-  } finally {
-    if (session) await session.close();
   }
 }
 
 async function findUserByEmail(email) {
-  let session;
   try {
-    session = await getSession();
-    if (!session) return null;
-    const res = await session.query('SELECT FROM User WHERE email = :email', { params: { email } });
-    return res[0];
+    const res = await pool.query('SELECT * FROM users WHERE email=$1', [email]);
+    return res.rows[0];
   } catch (err) {
-    error('Select User failed:', err);
+    error('Find User failed:', err);
     throw err;
-  } finally {
-    if (session) await session.close();
   }
 }
 
-module.exports = { insertUser, findUserByEmail };
+async function getUserRoles(userId) {
+  try {
+    const res = await pool.query('SELECT roles FROM users WHERE id=$1', [userId]);
+    return res.rows[0] ? res.rows[0].roles || [] : [];
+  } catch (err) {
+    error('Get roles failed:', err);
+    throw err;
+  }
+}
+
+module.exports = { insertUser, findUserByEmail, getUserRoles };

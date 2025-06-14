@@ -1,8 +1,12 @@
 const request = require('supertest');
-const app = require('../../server');
+process.env.JWT_SECRET = 'testsecret';
+const app = require('../server');
 
 describe('GET /api/graphs', () => {
   it('returns graph data', async () => {
+    await request(app)
+      .post('/register')
+      .send({ email: 'user@example.com', password: 'secret', roles: ['admin'] });
     const loginRes = await request(app)
       .post('/login')
       .send({ email: 'user@example.com', password: 'secret' });
